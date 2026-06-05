@@ -22,22 +22,13 @@
           "marked.min.js"
           
         ],
-        "css": [
-          "content.css"
-        ],
         "run_at": "document_idle"
-
       }
     ],
     "background": {
       "service_worker": "background.js"
     },
-    "web_accessible_resources" : [
-      {
-        "resources": ["inject.js"],
-        "matches" : ["<all_urls>"]
-      }
-    ],
+    
     "action": {
       "default_icon": {
         "16": "assets/icon.png",

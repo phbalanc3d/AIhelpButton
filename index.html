@@ -1,9 +1,25 @@
-<!--
-   index.html
-   Author:
-   Author URI: https://
-   Author Github URI: https://www.github.com/
-   Project Repository URI: https://github.com/
-   Description: The main UI for your Chrome Extension
-   License: MIT
--->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AZ ChatBot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>AZ ChatBot Settings</h2>
+  <label>Enter your API Key:</label>
+  <input type="text" id="apiKey" placeholder="sk-..." />
+  <button id="saveBtn">Save</button>
+  <p id="status"></p>
+  <script>
+    document.getElementById('saveBtn').onclick = () => {
+      const key = document.getElementById('apiKey').value;
+      chrome.storage.local.set({ apiKey: key }, () => {
+        document.getElementById('status').textContent = 'Saved!';
+      });
+    };
+    chrome.storage.local.get('apiKey', (data) => {
+      if (data.apiKey) document.getElementById('apiKey').value = data.apiKey;
+    });
+  </script>
+</body>
+</html>
