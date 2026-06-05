@@ -4,9 +4,13 @@
     "version": "0.1",
     "author": "Pachi Honhaga",
     "description": "Helps to solve AZ problemset using AI Chat Bot",
+    "host_permissions": [
+      "https://maang.in/*"
+    ],
     "permissions": [
       "storage",
-      "tabs"
+      "scripting",
+      "activeTab"
     ],
     "content_scripts": [
       {
@@ -17,7 +21,12 @@
           "content.js",
           "marked.min.js"
           
-        ]
+        ],
+        "css": [
+          "content.css"
+        ],
+        "run_at": "document_idle"
+
       }
     ],
     "background": {
