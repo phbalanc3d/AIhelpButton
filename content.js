@@ -105,12 +105,12 @@ function injectAIButton() {
   // Place it right after the h4 title
   h4.insertAdjacentElement('afterend', btn);
   //creates chatbox once
-  createChatbox();
+  createChatBox();
 
   //onclicking what happens
   btn.addEventListener('click', () => {
-    const chatbox = document.getElementById('az-chatbox');
-    if(!chatbox) return;
+    const chatBox = document.getElementById('az-chatbox');
+    if(!chatBox) return;
 
     if (chatBox.style.display === "none") {
       chatBox.style.display = "flex";
