@@ -24,8 +24,11 @@
       "https://maang.in/*"
     ],
     "js": [
+      
+      "marked.min.js",
       "content.js",
-      "marked.min.js"
+      "inject.js",
+      "scripts.js"
     ],
     "css": [
       "chatbox.css"
