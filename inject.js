@@ -1,27 +1,16 @@
-//that checks the change in the screen
-function waitForElement(selector, callback) {
-  const observer = new MutationObserver(() => {
-    const el = document.querySelector(selector);
-    if (el) { 
-        observer.disconnect();
-        callback(el); 
-    }
-  });
-
-  observer.observe(document.body, {
-     childList: true,
-      subtree: true 
-    });
-}
+//once we enter the problem page this stores the last url, when the page changess goes to some other only url changes ,, not the page reloads
+let lastUrl = location.href;
 
 //creating the chatbox
-function createChatBox(context){
+function createChatBox(){
+  //if already created then return
     if(document.getElementById('az-chatbox')) return;
 
     const chatBox = document.createElement('div');
     chatBox.id = 'az-chatbox';
-
+// its hidden first
     chatBox.style.display = 'none';
+    // this creates the chatbox area' html
     chatBox.innerHTML = `
     <div id= "az-chat-header">
     <span id="az-close" style="cursor: pointer;"> AZ AI Assistance </span>
@@ -112,14 +101,76 @@ function injectAIButton() {
   });
 }
 
+//resetExtension state
+//cleans everything from the prev screen when we move to other
+function resetExtensionState() {
+//optional chaining if exists then it removes if dont then dont do anything
+    document.getElementById(
+        "az-ai-help-btn"
+    )?.remove();
+
+    //clear older chat
+    const messages =
+        document.getElementById(
+            "az-chat-messages"
+        );
+
+    if(messages){
+        messages.innerHTML =
+        "<p>Ask anything about this problem</p>";
+    }
+
+    const input =
+        document.getElementById(
+            "az-user-input"
+        );
+
+    if(input){
+        input.value = "";
+    }
+
+    const chatBox =
+        document.getElementById(
+            "az-chatbox"
+        );
+
+    if(chatBox){
+        chatBox.style.display = "none";
+    }
+
+    window.azProblemContext = null;
+}
+
 // Keep watching in case React re-renders the page and removes the button
 function observeLayoutChanges() {
-  const observer = new MutationObserver(() => {
-    if (!document.getElementById('az-ai-help-btn')) {
-      injectAIButton();
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
+
+    const observer = new MutationObserver(() => {
+
+        if(location.href !== lastUrl){
+
+            lastUrl = location.href;
+
+            console.log("SPA Navigation");
+
+            resetExtensionState();
+
+            setTimeout(() => {
+                waitAndInject();
+            }, 500);
+        }
+
+        if(!document.getElementById(
+            "az-ai-help-btn"
+        )){
+            injectAIButton();
+        }
+
+    });
+
+    observer.observe(document.body,{
+        childList:true,
+        subtree:true
+    });
 }
 
 // Wait for the title to exist before injecting
