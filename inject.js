@@ -42,22 +42,23 @@ function createChatBox(context){
     chatBox.id = 'az-chatbox';
 
     chatBox.style.display = 'none';
+
     chatBox.innerHTML = `
     <div id= "az-chat-header">
     <span id="az-close" style="cursor: pointer;"> AZ AI Assistance </span>
     </div>
 
     <div id ="az-chat-messages"> 
-    <p>Ask anything about this problem</p>
+    <p style="color:#888; font-size:13px;">Ask anything about this problem</p>
     </div>
 
     <div id="az-chat-input-area">
     <input
-    id="az-chat-input"
+    id="az-user-input"
     type="text"
     placeholder="Type your question here..."
     />
-    <button id="az-chat-send-btn">Send</button>
+    <button id="az-send-btn">Send</button>
     </div>
     `;
 
@@ -68,7 +69,13 @@ function createChatBox(context){
     .addEventListener("click", () => {
       chatBox.style.display = "none";
     });
-     document.getElementById('az-chat-send-btn').addEventListener('click', () => sendMessage(context));
+
+     document.getElementById('az-send-btn').addEventListener('click', () => sendMessage(window.azProblemContext));
+
+     // Also send on Enter key
+  document.getElementById('az-user-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage(window.azProblemContext);
+  });
 }
 
 
@@ -145,4 +152,4 @@ function waitAndInject() {
   }
 }
 
-waitAndInject();
+waitAndInject(); 

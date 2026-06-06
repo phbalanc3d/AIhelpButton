@@ -1,3 +1,5 @@
+//send message to chatbox and get response from openai
+
 async function sendMessage(context) {
     const inputBox = document.getElementById('az-user-input');
     const userInput =inputBox.value;
@@ -9,7 +11,7 @@ async function sendMessage(context) {
     if (!apiKey) { appendMessage('bot', 'Please set your API key in the extension popup.'); return; }
 
      const systemPrompt = `
-You are a helpful coding mentor for AlgoZenith.
+You are a helpful coding mentor for AlgoZenith
 
 Problem Title:
 ${context.title}

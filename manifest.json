@@ -27,8 +27,9 @@
       
       "marked.min.js",
       "scripts.js",
-      "content.js",
-      "inject.js"
+      "inject.js",
+      "content.js"
+      
       
     ],
     "css": [
