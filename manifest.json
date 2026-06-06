@@ -26,9 +26,10 @@
     "js": [
       
       "marked.min.js",
+      "scripts.js",
       "content.js",
-      "inject.js",
-      "scripts.js"
+      "inject.js"
+      
     ],
     "css": [
       "chatbox.css"

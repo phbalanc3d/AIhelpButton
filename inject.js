@@ -35,7 +35,7 @@ function waitForElement(selector, callback) {
 
 }
 
-function createChatBox(){
+function createChatBox(context){
     if(document.getElementById('az-chatbox')) return;
 
     const chatBox = document.createElement('div');
