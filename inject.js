@@ -12,29 +12,9 @@ function waitForElement(selector, callback) {
      childList: true,
       subtree: true 
     });
-
-//temporary send button
-    document
-    .getElementById("az-send-btn")
-    .addEventListener("click", () => {
-      const input = document.getElementById("az-user-input");
-
-      if (input.value.trim() === "") return;
-
-      const messages =
-        document.getElementById("az-chat-messages");
-
-      messages.innerHTML += `
-        <div style="margin-top:10px;">
-          <b>You:</b> ${input.value}
-        </div>
-      `;
-
-      input.value = "";
-    });
-
 }
 
+//creating the chatbox
 function createChatBox(context){
     if(document.getElementById('az-chatbox')) return;
 
@@ -42,14 +22,13 @@ function createChatBox(context){
     chatBox.id = 'az-chatbox';
 
     chatBox.style.display = 'none';
-
     chatBox.innerHTML = `
     <div id= "az-chat-header">
     <span id="az-close" style="cursor: pointer;"> AZ AI Assistance </span>
     </div>
 
     <div id ="az-chat-messages"> 
-    <p style="color:#888; font-size:13px;">Ask anything about this problem</p>
+    <p>Ask anything about this problem</p>
     </div>
 
     <div id="az-chat-input-area">
@@ -70,12 +49,19 @@ function createChatBox(context){
       chatBox.style.display = "none";
     });
 
-     document.getElementById('az-send-btn').addEventListener('click', () => sendMessage(window.azProblemContext));
+const sendBtn = chatBox.querySelector("#az-send-btn");
+const inputBox = chatBox.querySelector("#az-user-input");
 
-     // Also send on Enter key
-  document.getElementById('az-user-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') sendMessage(window.azProblemContext);
-  });
+//on send or enter key press we send the msg to chatgpt using sendMessage func
+sendBtn.addEventListener("click", () => {
+    sendMessage(window.azProblemContext);
+});
+
+inputBox.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        sendMessage(window.azProblemContext);
+    }
+});
 }
 
 
@@ -152,4 +138,4 @@ function waitAndInject() {
   }
 }
 
-waitAndInject(); 
+waitAndInject();
